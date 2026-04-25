@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Anki Gap Finder English</title>
+  <meta name="description" content="Frequently asked questions about Anki Gap Finder English — how to use the app, choose a target language, upgrade to lifetime, manage the ignore list, export cards, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #faf9f7;
+      --surface:   #ffffff;
+      --border:    #e8e4de;
+      --accent:    #1a7a6e;
+      --accent-lt: #e8f5f3;
+      --accent-hv: #15665c;
+      --text:      #1c1c1e;
+      --muted:     #6b6b72;
+      --radius:    10px;
+    }
+
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .nav-logo:hover { text-decoration: none; }
+    .nav-logo .glyph {
+      width: 28px; height: 28px;
+      background: var(--accent);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 0.85rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 0.9rem;
+    }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--accent); font-weight: 600; }
+    .nav-dl {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 7px 18px;
+      border-radius: 7px;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+    .nav-dl:hover { background: var(--accent-hv) !important; text-decoration: none !important; }
+
+    /* ── Page header ── */
+    .page-header {
+      text-align: center;
+      padding: 64px 24px 48px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    /* ── TOC ── */
+    .toc-band {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px;
+    }
+    .toc-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 24px;
+    }
+    .toc-inner a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .toc-inner a:hover { text-decoration: underline; }
+
+    /* ── FAQ sections ── */
+    .faq-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    .faq-section {
+      margin-bottom: 56px;
+    }
+
+    .faq-section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent-lt);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .faq-section-title .icon {
+      width: 32px; height: 32px;
+      background: var(--accent-lt);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Accordion ── */
+    details {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    summary {
+      padding: 16px 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+";
+      font-size: 1.2rem;
+      color: var(--muted);
+      font-weight: 400;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    details[open] summary::after { content: "−"; }
+    summary:hover { background: var(--bg); }
+    details[open] summary { border-bottom: 1px solid var(--border); }
+
+    .answer {
+      padding: 16px 20px 20px;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .answer p + p { margin-top: 10px; }
+    .answer ul, .answer ol {
+      margin: 10px 0 10px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .answer li { font-size: 0.92rem; }
+    .answer strong { font-weight: 600; }
+    .answer code {
+      background: #f0ede8;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.85rem;
+      font-family: "SF Mono", "Fira Code", monospace;
+    }
+    .answer .note {
+      background: var(--accent-lt);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: var(--accent);
+    }
+    .answer .tip {
+      background: #f5f0e8;
+      border-left: 3px solid #c49a00;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: #7a5f00;
+    }
+
+    /* ── CTA band ── */
+    .cta-band {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      padding: 52px 24px;
+    }
+    .cta-band h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+    .cta-band p { font-size: 0.95rem; opacity: 0.85; margin-bottom: 24px; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-white {
+      background: #fff;
+      color: var(--accent);
+      padding: 11px 26px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .cta-btn-white:hover { background: var(--accent-lt); text-decoration: none; }
+    .cta-btn-ghost {
+      background: transparent;
+      color: #fff;
+      padding: 11px 26px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .cta-btn-ghost:hover { border-color: #fff; text-decoration: none; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 20px; }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      footer { flex-direction: column; text-align: center; }
+      .page-header { padding: 40px 16px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="glyph">A</div>
+    Anki Gap Finder — English
+  </a>
+  <div class="nav-links">
+    <a href="index.html#how-it-works">How it works</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="faq.html" class="active">FAQ</a>
+    <a href="index.html#download" class="nav-dl">Download</a>
+  </div>
+</nav>
+
+<!-- Page header -->
+<div class="page-header">
+  <h1>Frequently Asked Questions</h1>
+  <p>Everything you need to know about using Anki Gap Finder — English Edition.</p>
+</div>
+
+<!-- TOC -->
+<div class="toc-band">
+  <div class="toc-inner">
+    <a href="#getting-started">Getting Started</a>
+    <a href="#language-selection">Language Selection</a>
+    <a href="#using-the-app">Using the App</a>
+    <a href="#input-options">Input Options</a>
+    <a href="#sort-output">Sort &amp; Output</a>
+    <a href="#review-table">Review Table</a>
+    <a href="#ignore-list">Ignore List</a>
+    <a href="#exporting">Exporting &amp; Anki</a>
+    <a href="#pricing">Pricing &amp; Licensing</a>
+    <a href="#troubleshooting">Troubleshooting</a>
+  </div>
+</div>
+
+<!-- FAQ content -->
+<div class="faq-page">
+
+  <!-- Getting Started -->
+  <div class="faq-section" id="getting-started">
+    <div class="faq-section-title">
+      <div class="icon">🚀</div>
+      Getting Started
+    </div>
+
+    <details>
+      <summary>What is Anki Gap Finder — English Edition?</summary>
+      <div class="answer">
+        <p>Anki Gap Finder (English Edition) is a desktop app for English speakers learning any other language. You give it an English source file — a textbook, article, novel, or any document — and it finds every word you don't already have in your Anki deck, then automatically builds ready-to-import flashcards with translations into your target language, audio pronunciation, example sentences, and grammar notes.</p>
+        <p>It supports over 100 target languages including Spanish, French, German, Japanese, Chinese, Arabic, Korean, Portuguese, Italian, and many more.</p>
+        <div class="note">Making one card by hand takes about 2 minutes. At 10 cards a day this tool saves you over 2 hours a week.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>What do I need to get started?</summary>
+      <div class="answer">
+        <ul>
+          <li>An English source file — any PDF, TXT, EPUB, or HTML document you want to study vocabulary from.</li>
+          <li>Your target language selected in the app's "Translate to:" dropdown.</li>
+          <li>Optionally, your existing Anki deck exported as an <code>.apkg</code> file, so the app can filter out words you already have cards for.</li>
+          <li>An internet connection for translations and audio. Gap detection and grammar notes work offline.</li>
+        </ul>
+        <p>No API keys, accounts, or subscriptions are required to use the free tier.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does the app require an internet connection?</summary>
+      <div class="answer">
+        <p>Partially. Grammar analysis and gap detection run fully offline. Translations and audio pronunciation are fetched from Google's services during processing, so those steps require an internet connection.</p>
+        <p>Audio files are cached to a folder next to your source file after the first run, so re-processing the same text is faster on subsequent runs.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How is this different from the Russian Edition?</summary>
+      <div class="answer">
+        <p>The Russian Edition is designed for people learning Russian — it takes Russian source text and generates cards with English translations, plus Russian-specific features like stress marks (носи́ть) and detailed Russian grammar notes.</p>
+        <p>The English Edition is for English speakers learning any other language. You provide English source text, choose your target language, and the app generates cards with that language's translations and audio. It supports 100+ languages and works for learners of Spanish, Japanese, French, Arabic, Korean, or any other supported language.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Language Selection -->
+  <div class="faq-section" id="language-selection">
+    <div class="faq-section-title">
+      <div class="icon">🌍</div>
+      Language Selection
+    </div>
+
+    <details>
+      <summary>How do I choose my target language?</summary>
+      <div class="answer">
+        <p>In the options row near the top of the app, there is a <strong>"Translate to:"</strong> dropdown menu. Click it and select your target language before clicking "Find Gaps &amp; Generate Cards." The app will translate every gap word into that language and generate audio in that language.</p>
+        <p>You can change the language between runs — just select a different language and run the app again on the same or a different source file.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What languages are supported?</summary>
+      <div class="answer">
+        <p>Over 100 languages are supported, including but not limited to:</p>
+        <ul>
+          <li><strong>European:</strong> Spanish, French, German, Italian, Portuguese, Dutch, Polish, Swedish, Norwegian, Danish, Finnish, Greek, Czech, Romanian, Hungarian, Ukrainian, Russian, and more</li>
+          <li><strong>Asian:</strong> Japanese, Chinese (Simplified), Chinese (Traditional), Korean, Vietnamese, Thai, Indonesian, Malay, Hindi, Bengali, Urdu, Tamil, Telugu, and more</li>
+          <li><strong>Middle Eastern / African:</strong> Arabic, Hebrew, Persian (Farsi), Turkish, Swahili, Amharic, and more</li>
+          <li><strong>Others:</strong> Latin, Esperanto, Welsh, Irish, Catalan, and many more</li>
+        </ul>
+        <p>The full list is available in the "Translate to:" dropdown inside the app.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What do the cards look like for different languages?</summary>
+      <div class="answer">
+        <p><strong>Front of card:</strong> The English word, audio pronunciation in the target language, and an example sentence from your source text.</p>
+        <p><strong>Back of card:</strong> The translation in your target language, plus grammar notes (if enabled) such as part of speech.</p>
+        <div class="tip">Audio is generated in the target language — so for a Spanish card, you hear the Spanish pronunciation, not English.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I generate cards for multiple languages from the same file?</summary>
+      <div class="answer">
+        <p>Yes — run the app once for each language. Select Spanish, run it, export. Then switch to Japanese, run it again, export. Each run generates a separate <code>.apkg</code> file that you can import into Anki as its own deck.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Using the App -->
+  <div class="faq-section" id="using-the-app">
+    <div class="faq-section-title">
+      <div class="icon">📖</div>
+      Using the App
+    </div>
+
+    <details>
+      <summary>How do I generate cards? (step by step)</summary>
+      <div class="answer">
+        <ol>
+          <li><strong>Select your source file.</strong> Click "Browse" next to the source field and choose an English PDF, TXT, EPUB, or HTML file. You can also switch to Paste Text mode and paste English text directly.</li>
+          <li><strong>Optionally select your Anki deck.</strong> Click "Browse" next to the Anki deck field and choose your exported <code>.apkg</code> file. Words you already have cards for will be filtered out.</li>
+          <li><strong>Choose your target language.</strong> Click the "Translate to:" dropdown and select the language you're learning.</li>
+          <li><strong>Choose your other options.</strong> Pick a sort order, output format, deck name, and whether to include grammar notes.</li>
+          <li><strong>Click "Find Gaps &amp; Generate Cards."</strong> A progress bar and ETA tracker show the current stage. Processing time depends on how many new words are in your document.</li>
+          <li><strong>Review the results table.</strong> Delete any rows you don't want. Double-click any cell to edit it.</li>
+          <li><strong>Click "Export."</strong> Choose a save location, then drag the <code>.apkg</code> file into Anki to import your new cards.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>How does "gap detection" work — how does it know what I already know?</summary>
+      <div class="answer">
+        <p>The app lemmatizes (reduces to base/dictionary form) every word in both your source file and your Anki deck. For example, "running," "ran," and "runs" all reduce to "run." If any form of the word exists anywhere in your deck — on the front, back, or in an example — it's considered known and filtered out.</p>
+        <p>This means you won't get cards for words you already study, even if the exact inflected form isn't in your deck.</p>
+        <div class="tip">For the most accurate filtering, export your full main Anki deck rather than a specific sub-deck.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>How long does processing take?</summary>
+      <div class="answer">
+        <p>It depends on how many unique new words are in your source. The app shows a live ETA that updates as it works. Rough estimates:</p>
+        <ul>
+          <li>A short article or chapter (5–20 new words): under 30 seconds</li>
+          <li>A textbook chapter (50–100 new words): 1–3 minutes</li>
+          <li>A full document (500+ new words): 10–20 minutes</li>
+        </ul>
+        <p>Translation and audio are the slowest steps. Audio files are cached after the first run, so re-processing the same source is significantly faster.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Input Options -->
+  <div class="faq-section" id="input-options">
+    <div class="faq-section-title">
+      <div class="icon">📄</div>
+      Input Options
+    </div>
+
+    <details>
+      <summary>What file formats are supported?</summary>
+      <div class="answer">
+        <ul>
+          <li><strong>PDF</strong> — Works with textbooks, articles, and documents. Text must be selectable (not a scanned image).</li>
+          <li><strong>TXT / MD</strong> — Plain text files. Fast and great for custom word lists or copied articles.</li>
+          <li><strong>EPUB</strong> — eBook format, works with most English ebooks and language learning materials.</li>
+          <li><strong>HTML / HTM</strong> — Web pages saved locally. Good for online articles or course materials saved from a browser.</li>
+        </ul>
+        <div class="tip">If your PDF is a scanned image with no selectable text, run it through OCR software first before using it with the app.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>What is Paste Text mode?</summary>
+      <div class="answer">
+        <p>Paste Text mode lets you type or paste English text directly into the app instead of loading a file. Click the mode toggle at the top of the window to switch between File mode and Paste Text mode.</p>
+        <p>This is useful for:</p>
+        <ul>
+          <li>A passage copied from a website or email</li>
+          <li>A custom list of English words you want translated into a new language</li>
+          <li>Testing the app quickly without a full document</li>
+        </ul>
+        <div class="tip">Paste Text mode works best for shorter passages (roughly 5,000 words or fewer). For full books or long documents, use file mode.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Do I have to provide an Anki deck file?</summary>
+      <div class="answer">
+        <p>No — the Anki deck field is optional. If you leave it empty, the app generates cards for every unique English word in your source.</p>
+        <p>If you're just starting out with Anki or studying a new language for the first time, skip the deck field and you'll get a full vocabulary set for your source material.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I export my Anki deck as an .apkg file?</summary>
+      <div class="answer">
+        <p>In Anki on your computer:</p>
+        <ol>
+          <li>Open Anki and go to your deck list.</li>
+          <li>Click the gear icon next to the deck you want to export (or use the top-level deck to export everything).</li>
+          <li>Select <strong>Export</strong>.</li>
+          <li>Choose <strong>Anki Deck Package (.apkg)</strong> as the format.</li>
+          <li>Make sure "Include scheduling information" is checked.</li>
+          <li>Click <strong>Export</strong> and save the file somewhere easy to find.</li>
+        </ol>
+        <p>Then point Anki Gap Finder at that <code>.apkg</code> file.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Sort & Output -->
+  <div class="faq-section" id="sort-output">
+    <div class="faq-section-title">
+      <div class="icon">⚙️</div>
+      Sort &amp; Output Options
+    </div>
+
+    <details>
+      <summary>What does "Sort by Alphabetical / Frequency" mean?</summary>
+      <div class="answer">
+        <p><strong>Alphabetical</strong> sorts the results table A–Z by the English word. Good for browsing the list systematically.</p>
+        <p><strong>Frequency</strong> sorts by how many times each word appears in your source text. The most common words appear first. This is usually the better choice — you learn the words that matter most to your specific text first.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What output formats are available?</summary>
+      <div class="answer">
+        <ul>
+          <li><strong>.apkg</strong> — Anki deck package. Drag it directly into Anki to import. Cards include the English word, target-language audio, example sentence, translation, and grammar notes. This is the recommended format.</li>
+          <li><strong>CSV</strong> — A spreadsheet-compatible file with all card data in columns. Useful for reviewing or sharing the data, or importing into a different flashcard app.</li>
+          <li><strong>JSON</strong> — Structured data useful for developers or for importing into custom tools.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>What is the "Deck Name" field?</summary>
+      <div class="answer">
+        <p>The Deck Name field (visible when the output format is set to <strong>.apkg</strong>) is the name that will appear in Anki after import. For example, entering "Spanish :: Chapter 3" will organize the cards under that deck name in Anki.</p>
+        <p>The default is "English :: Gaps". You can rename it to anything that helps you organize your study — for example by language, source, or topic.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What are "Grammar Notes" and should I include them?</summary>
+      <div class="answer">
+        <p>Grammar notes add linguistic information to the back of each card, such as part of speech (noun, verb, adjective, etc.) and other relevant details.</p>
+        <p>Keeping grammar notes enabled is recommended for most learners — knowing whether a word is a noun or a verb, for example, helps you understand how to use it in a sentence.</p>
+        <p>If you prefer minimal cards without the extra information, uncheck the Grammar Notes checkbox before processing.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Review Table -->
+  <div class="faq-section" id="review-table">
+    <div class="faq-section-title">
+      <div class="icon">📋</div>
+      Review Table
+    </div>
+
+    <details>
+      <summary>How do I remove words I don't want to keep?</summary>
+      <div class="answer">
+        <p>Click a row to select it (it will highlight). Then either:</p>
+        <ul>
+          <li>Press <strong>Delete</strong> or <strong>Backspace</strong> on your keyboard.</li>
+          <li>Right-click and choose <strong>Delete selected</strong> from the context menu.</li>
+          <li>Use the <strong>Delete selected</strong> button in the header bar above the table.</li>
+        </ul>
+        <p>A dialog will ask whether to also add the word to your Ignore List (see below).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I select multiple rows at once?</summary>
+      <div class="answer">
+        <ul>
+          <li>Hold <strong>Cmd (Mac) or Ctrl (Windows/Linux)</strong> while clicking to select individual rows one by one.</li>
+          <li>Click <strong>Select All</strong> in the header bar, or press <strong>Cmd+A / Ctrl+A</strong>, to select every row at once.</li>
+        </ul>
+        <p>Deleting or right-clicking acts on all selected rows at once.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I edit the generated content?</summary>
+      <div class="answer">
+        <p>Yes. Double-click any cell in the table to edit it directly. This works for the English word, translation, grammar notes, and example sentence.</p>
+        <p>This is useful if a translation needs a small correction, or if you want to clean up an example sentence before exporting.</p>
+        <div class="tip">The Audio column cannot be edited — audio files are generated automatically from the translation.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>What do the columns in the table mean?</summary>
+      <div class="answer">
+        <ul>
+          <li><strong>English</strong> — The base (dictionary) form of the English word.</li>
+          <li><strong>Translation</strong> — The word translated into your chosen target language.</li>
+          <li><strong>Grammar</strong> — Part of speech and related grammatical information.</li>
+          <li><strong>Example</strong> — A sentence from your source text that contains the word.</li>
+          <li><strong>Audio</strong> — The filename of the generated pronunciation MP3 in the target language.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I copy a value from the table?</summary>
+      <div class="answer">
+        <p>Yes. Right-click any cell and choose <strong>Copy cell value</strong> to copy that cell's text to your clipboard.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Ignore List -->
+  <div class="faq-section" id="ignore-list">
+    <div class="faq-section-title">
+      <div class="icon">🚫</div>
+      Ignore List
+    </div>
+
+    <details>
+      <summary>What is the Ignore List?</summary>
+      <div class="answer">
+        <p>The Ignore List is a personal list of English words you never want the app to generate cards for, even if they appear in a source file and aren't in your Anki deck.</p>
+        <p>Common candidates: extremely common words (the, and, is), proper nouns, words you're already confident with, or words you've decided aren't worth studying right now.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I add a word to the Ignore List?</summary>
+      <div class="answer">
+        <p>When deleting a row from the review table, the app asks what to do:</p>
+        <ul>
+          <li><strong>Yes</strong> — Delete the row and add the word to your Ignore List permanently.</li>
+          <li><strong>No</strong> — Delete the row from this session only (the word may appear again in future runs).</li>
+          <li><strong>Cancel</strong> — Keep the row.</li>
+        </ul>
+        <p>You can also right-click a row and choose <strong>Delete &amp; Ignore</strong> to skip the dialog entirely.</p>
+        <div class="note">Words on the Ignore List are excluded from all future runs automatically — you won't need to delete them again.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Where is the Ignore List stored?</summary>
+      <div class="answer">
+        <p>The Ignore List is saved to <code>~/.anki_gap_finder_ignored.json</code> on your computer. On Mac this is typically <code>/Users/yourname/.anki_gap_finder_ignored.json</code>; on Windows it's in your user folder.</p>
+        <p>This file persists across app updates and restarts.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I clear or view the Ignore List?</summary>
+      <div class="answer">
+        <p>Open the file in any text editor — it's a plain JSON list of words. To clear the entire list, delete the file or replace its contents with <code>[]</code>. To remove a single word, find and delete that entry in the file.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Exporting -->
+  <div class="faq-section" id="exporting">
+    <div class="faq-section-title">
+      <div class="icon">📤</div>
+      Exporting &amp; Anki
+    </div>
+
+    <details>
+      <summary>How do I export my cards?</summary>
+      <div class="answer">
+        <p>After reviewing the results table, click the <strong>Export →</strong> button in the table header bar. A save dialog will open. Choose a location and filename, then click Save.</p>
+        <p>The default filename includes the source file name and the target language — for example, <code>chapter1_spanish_gaps.apkg</code>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I import the .apkg file into Anki?</summary>
+      <div class="answer">
+        <ol>
+          <li>Open Anki on your computer.</li>
+          <li>Drag and drop the <code>.apkg</code> file into the Anki window, or go to <strong>File → Import</strong> and select the file.</li>
+          <li>Anki will show how many cards were added. Click <strong>Close</strong>.</li>
+          <li>The new deck appears in your deck list, ready to study.</li>
+        </ol>
+        <div class="tip">Audio files are bundled inside the <code>.apkg</code> — no extra steps needed. Pronunciation in your target language auto-plays when you open each card.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>What do the cards look like in Anki?</summary>
+      <div class="answer">
+        <p><strong>Front of card:</strong> The English word, the pronunciation audio in your target language (auto-plays), and an example sentence from your source text.</p>
+        <p><strong>Back of card:</strong> The translation in your target language, and grammar notes (if enabled) showing part of speech and relevant grammatical information.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What are the CSV and JSON formats for?</summary>
+      <div class="answer">
+        <p><strong>CSV</strong> exports a spreadsheet with all card data in columns (English, Translation, Grammar, Example, Audio). Open it in Excel or Google Sheets to review, share, or import into another flashcard tool that accepts CSV.</p>
+        <p><strong>JSON</strong> exports structured data useful for developers building custom tools or integrations on top of the app's output.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Pricing & Licensing -->
+  <div class="faq-section" id="pricing">
+    <div class="faq-section-title">
+      <div class="icon">💳</div>
+      Pricing &amp; Licensing
+    </div>
+
+    <details>
+      <summary>What's included in the free tier?</summary>
+      <div class="answer">
+        <p>The free tier gives full access to all features with one limitation: PDF files are capped at the first 10 pages. For TXT, EPUB, and HTML files there is an equivalent word-count limit.</p>
+        <p>All output formats (apkg, CSV, JSON), grammar notes, audio, the ignore list, and all 100+ languages all work in the free tier — the only limit is document length.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I upgrade to the lifetime license?</summary>
+      <div class="answer">
+        <ol>
+          <li>Click <strong>Buy — $5 lifetime</strong> in the app (shown in the upgrade banner or in Settings) or on the pricing page of this website.</li>
+          <li>Complete checkout via Stripe. Your card details are handled entirely by Stripe — we never see them.</li>
+          <li>You'll receive an email with your email address and a license key.</li>
+          <li>Open the app, click the <strong>gear icon (⚙)</strong> to open Settings, and click <strong>Activate license</strong>.</li>
+          <li>Enter the email you used at checkout and paste in your license key. Click <strong>Activate</strong>.</li>
+        </ol>
+        <p>No page limits, all languages, all future updates — one-time payment.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Where do I find my license key?</summary>
+      <div class="answer">
+        <p>Your license key is emailed automatically after purchase. Check the inbox for the email address you used at checkout, including your spam/junk folder.</p>
+        <p>If you can't find the email, contact <a href="mailto:chad@berestapress.com">chad@berestapress.com</a> with your purchase email and we'll resend it.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I activate my license in the app?</summary>
+      <div class="answer">
+        <ol>
+          <li>Click the <strong>gear icon (⚙)</strong> in the top-right corner of the app to open Settings.</li>
+          <li>Click <strong>Activate license</strong>.</li>
+          <li>Enter the <strong>email address</strong> you used when purchasing.</li>
+          <li>Paste in your <strong>license key</strong> from the email.</li>
+          <li>Click <strong>Activate</strong>. A green confirmation appears and the page limit is lifted immediately.</li>
+        </ol>
+        <div class="note">License validation works offline — the key is verified on your device with no server call required after initial activation.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I use my license on multiple computers?</summary>
+      <div class="answer">
+        <p>Yes. Your email and license key can activate the app on any machine you own. Just enter the same credentials in Settings → Activate license on each device.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I deactivate my license on a machine?</summary>
+      <div class="answer">
+        <p>Open <strong>Settings</strong> (gear icon) and click <strong>Deactivate license</strong>. Confirm the prompt. The license is removed from that machine and the app returns to free-tier mode. Your key remains valid — re-activate on the same or a different machine at any time.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is there a subscription or recurring charge?</summary>
+      <div class="answer">
+        <p>No. The $5 license is a one-time payment. No subscriptions, renewals, or hidden fees. All future updates are included.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Troubleshooting -->
+  <div class="faq-section" id="troubleshooting">
+    <div class="faq-section-title">
+      <div class="icon">🔧</div>
+      Troubleshooting
+    </div>
+
+    <details>
+      <summary>A translation is wrong. Can I fix it?</summary>
+      <div class="answer">
+        <p>Yes — double-click the cell in the Translation column and type the correct translation. The correction is included when you export.</p>
+        <p>Translations are generated by Google Translate and are usually accurate, but context-dependent words sometimes need a manual correction — especially for idiomatic phrases or words with multiple meanings.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Some words I expected are missing from the results.</summary>
+      <div class="answer">
+        <p>A few reasons a word might not appear:</p>
+        <ul>
+          <li><strong>It's already in your Anki deck.</strong> The app lemmatizes and compares — any form of the word in your deck marks it as known.</li>
+          <li><strong>It's on your Ignore List.</strong> Check <code>~/.anki_gap_finder_ignored.json</code>.</li>
+          <li><strong>It's a proper noun, number, or very short token.</strong> These are filtered automatically as they typically don't need flashcards.</li>
+          <li><strong>It's an extremely common function word</strong> (the, a, is, of) that was filtered as not worth studying.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Audio isn't playing in Anki.</summary>
+      <div class="answer">
+        <p>Audio files are bundled inside the <code>.apkg</code> when you export. If audio isn't playing:</p>
+        <ul>
+          <li>Make sure you exported in <strong>.apkg format</strong> — CSV and JSON don't include audio.</li>
+          <li>Check that Anki's media settings allow audio playback (Tools → Preferences → Review).</li>
+          <li>Try re-importing the <code>.apkg</code> file.</li>
+          <li>On mobile (AnkiDroid / AnkiMobile), sync your collection from the desktop first so audio files transfer.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Processing failed or got stuck. What should I do?</summary>
+      <div class="answer">
+        <p>Check your internet connection — translation and audio require network access. If processing stalls, close and reopen the app and try again.</p>
+        <p>If a specific file consistently fails:</p>
+        <ul>
+          <li>For PDFs: make sure the text is selectable (not a scanned image).</li>
+          <li>Try copying the text and using Paste Text mode instead.</li>
+        </ul>
+        <p>If the problem persists, <a href="mailto:chad@berestapress.com">send us the error details</a> and we'll help.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>My license key says "Invalid key." What do I do?</summary>
+      <div class="answer">
+        <p>Double-check that you're entering the exact email address used at checkout and that the license key is pasted in full with no extra spaces. If it still fails, <a href="mailto:chad@berestapress.com">email us</a> with your purchase email and we'll look it up.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I contact support?</summary>
+      <div class="answer">
+        <p>Email us at <a href="mailto:chad@berestapress.com">chad@berestapress.com</a> or use the <strong>Send feedback</strong> button in the app's Settings panel. We read every message.</p>
+      </div>
+    </details>
+
+  </div>
+
+</div><!-- /faq-page -->
+
+<!-- CTA band -->
+<div class="cta-band">
+  <h2>Ready to build your vocabulary faster?</h2>
+  <p>Download free and generate your first batch of cards in minutes — in any language.</p>
+  <div class="cta-btns">
+    <a href="index.html#download" class="cta-btn-white">Download free</a>
+    <a href="index.html#pricing" class="cta-btn-ghost">See pricing</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div>Anki Gap Finder — English Edition</div>
+  <div class="footer-links">
+    <a href="index.html#how-it-works">How it works</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="mailto:chad@berestapress.com">Contact</a>
+  </div>
+  <div>Made for language learners.</div>
+</footer>
+
+</body>
+</html>
